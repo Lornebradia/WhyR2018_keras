@@ -27,3 +27,6 @@ history <- fashion_model %>%
 
 fashion_model %>% evaluate(fashion_mnist_test_X, fashion_mnist_test_Y)
 
+fashion_predictions <- fashion_model %>% predict(fashion_mnist_test_X)
+
+# Ex. 2.

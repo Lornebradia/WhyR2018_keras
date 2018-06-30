@@ -55,12 +55,12 @@ save_model_hdf5(boston_model, "boston_model.hdf5")
 load("data/fashion_mnist.RData")
 
 # 1. Change labels vectors to one-hot-encoding matrix using to_categorical() function
-fashion_mnist_train_Y <- fashion_mnist_train_Y %>% to_categorical(., 10)
-fashion_mnist_test_Y <- fashion_mnist_test_Y %>% to_categorical(., 10)
+fashion_mnist_train_Y <- 
+fashion_mnist_test_Y <- 
 
 # 2. Scale pixel values to [0, 1] interval
-fashion_mnist_train_X <- fashion_mnist_train_X / 255
-fashion_mnist_test_X <- fashion_mnist_test_X / 255
+fashion_mnist_train_X <- 
+fashion_mnist_test_X <- 
 
 # 3. Model architecture:
 # Dense layer with 512 units and "relu" activation
@@ -68,30 +68,16 @@ fashion_mnist_test_X <- fashion_mnist_test_X / 255
 # Dense layer with 512 units and "relu" activation
 # Dropout layer with 20% drop rate
 # Output dense layer (how many units and what activation should You use?)
-fashion_model <- keras_model_sequential() %>%
-  layer_dense(units = 512, activation = "relu", input_shape = 784) %>%
-  layer_dropout(0.2) %>%
-  layer_dense(units = 512, activation = "relu") %>%
-  layer_dropout(0.2) %>%
-  layer_dense(units = 10, activation = "softmax")
+fashion_model <- 
 
 # 4. Set SGD as optimizer and use categorical crossentropy as loss function. Use accuracy as additional metric.
-fashion_model %>% compile(
-  optimizer = "sgd",
-  loss = "categorical_crossentropy",
-  metrics = c("accuracy")
-)
+
 
 # 5. Fit the model. Use 20% of the data for validation, 20 epochs and 128 samples for batch size.
-history <- fashion_model %>%
-  fit(x = fashion_mnist_train_X,
-      y = fashion_mnist_train_Y,
-      validation_split = 0.2,
-      epochs = 20,
-      batch_size = 128)
+history <- 
 
 # 6. Evaluate model on test set
-fashion_model %>% evaluate(fashion_mnist_test_X, fashion_mnist_test_Y)
+
 
 # 7. Calculate predictions for the test set
-fashion_model %>% predict(fashion_mnist_test_X)
+fashion_predictions <-
