@@ -18,10 +18,10 @@ plot_sample_image(ships_train$data, ships_train$labels, show_layers = TRUE, row_
 ships_train$labels <- 
   ships_test$labels <- 
   
-  # 2. Initialize sequential model and add 2d convolutional layer
-  # with 32 filters, 3x3 kernel, 1x1 stride, "relu" activation
-  ships_model <- 
-  summary(ships_model)
+# 2. Initialize sequential model and add 2d convolutional layer
+# with 32 filters, 3x3 kernel, 1x1 stride, "relu" activation
+ships_model <- 
+summary(ships_model)
 
 # 3. Explain output shape and nr of params
 
@@ -41,16 +41,16 @@ summary(ships_model)
 # 6. Fit the model. Use 20% of the data for validation, 20 epochs and 32 samples for batch size.
 ships_fit <- 
   
-  # 7. Evaluate model on test set
+# 7. Evaluate model on test set
   
   
-  # 8. Save model in hdf5 format
+# 8. Save model in hdf5 format
   
   
-  # Ex 3. Build second model using batch normalization. Use early stopping and checkpoints. Save logs to Tensorboard
-  # 1. Model architecture:
-  # convolution with 64 filters, 3x3 kernel, 1x1 strides, "linear" activation, "same" padding
-  # batch normalization
+# Ex 3. Build second model using batch normalization. Use early stopping and checkpoints. Save logs to Tensorboard
+# 1. Model architecture:
+# convolution with 64 filters, 3x3 kernel, 1x1 strides, "linear" activation, "same" padding
+# batch normalization
 # "relu" activation
 # max pooling with 2x2 pool (kernel), 2x2 strides
 # dropout layer with 25% drop rate

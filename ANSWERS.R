@@ -98,3 +98,30 @@ ships_fit2 <- ships_model2 %>% fit(ships_test$data, ships_test$labels,
 tensorboard("logs")
 
 ships_model2 %>% evaluate(ships_test$data, ships_test$labels)
+
+# Ex. 4.
+train_datagen <- image_data_generator(
+  rescale = 1/255,
+  rotation_range = 35,
+  width_shift_range = 0.3,
+  height_shift_range = 0.3,
+  zoom_range = 0.2,
+  horizontal_flip = TRUE
+)
+
+batch <- generator_next(train_generator)
+
+# Ex. 5.
+conv_base <- application_vgg16(
+  weights = "imagenet",
+  include_top = FALSE,
+  input_shape = c(150, 150, 3)
+)
+
+freeze_weights(conv_base, from = "block1_conv1", to = "block2_pool")
+
+model <- keras_model_sequential() %>%
+  conv_base %>%
+  layer_flatten() %>%
+  layer_dense(units = 256, activation = "relu") %>%
+  layer_dense(units = 2, activation = "sigmoid")
