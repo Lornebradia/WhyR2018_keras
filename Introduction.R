@@ -92,3 +92,6 @@ history <- fashion_model %>%
 
 # 6. Evaluate model on test set
 fashion_model %>% evaluate(fashion_mnist_test_X, fashion_mnist_test_Y)
+
+# 7. Calculate predictions for the test set
+fashion_model %>% predict(fashion_mnist_test_X)
