@@ -62,3 +62,39 @@ ships_model %>% evaluate(ships_test$data, ships_test$labels)
 save_model_hdf5(ships_model, "ships_model.hdf5")
 
 # Ex. 3.
+ships_model2 <- keras_model_sequential() %>%
+  layer_conv_2d(
+    filter = 32, kernel_size = c(3, 3), padding = "same", 
+    input_shape = c(80, 80, 3), activation = "linear") %>%
+  layer_batch_normalization() %>%
+  layer_activation("relu") %>%
+  layer_max_pooling_2d(pool_size = c(2, 2), strides = c(2, 2)) %>%
+  layer_dropout(0.25) %>%
+  layer_conv_2d(filter = 64, kernel_size = c(3, 3), padding = "same",
+                activation = "linear") %>%
+  layer_batch_normalization() %>%
+  layer_activation("relu") %>%
+  layer_max_pooling_2d(pool_size = c(2, 2), strides = c(2, 2)) %>%
+  layer_dropout(0.25) %>%
+  layer_flatten() %>%
+  layer_dense(512, activation = "relu") %>%
+  layer_dropout(0.25) %>%
+  layer_dense(2, activation = "softmax")
+
+ships_model2 %>% compile(
+  loss = "binary_crossentropy",
+  optimizer = optimizer_adamax(lr = 0.0001, decay = 1e-6),
+  metrics = "accuracy"
+)
+
+ships_fit2 <- ships_model2 %>% fit(ships_test$data, ships_test$labels,
+                                   epochs = 20, batch_size = 32,
+                                   validation_split = 0.2,
+                                   callbacks = c(callback_early_stopping(monitor = "val_loss", patience = 5),
+                                                 callback_model_checkpoint(monitor = "val_loss", period = 2,
+                                                                           save_best_only = TRUE,
+                                                                           filepath = "ships_best.hdf5"),
+                                                 callback_tensorboard(log_dir = "logs")))
+tensorboard("logs")
+
+ships_model2 %>% evaluate(ships_test$data, ships_test$labels)

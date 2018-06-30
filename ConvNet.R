@@ -16,12 +16,12 @@ plot_sample_image(ships_train$data, ships_train$labels, show_layers = TRUE, row_
 # Ex. 2 - Build a simple ConvNet for binary classification
 # 1. Change labels vectors to one-hot-encoding matrix
 ships_train$labels <- 
-ships_test$labels <- 
-
-# 2. Initialize sequential model and add 2d convolutional layer
-# with 32 filters, 3x3 kernel, 1x1 stride, "relu" activation
-ships_model <- 
-summary(ships_model)
+  ships_test$labels <- 
+  
+  # 2. Initialize sequential model and add 2d convolutional layer
+  # with 32 filters, 3x3 kernel, 1x1 stride, "relu" activation
+  ships_model <- 
+  summary(ships_model)
 
 # 3. Explain output shape and nr of params
 
@@ -40,17 +40,17 @@ summary(ships_model)
 
 # 6. Fit the model. Use 20% of the data for validation, 20 epochs and 32 samples for batch size.
 ships_fit <- 
-
-# 7. Evaluate model on test set
   
-
-# 8. Save model in hdf5 format
-
-
-# Ex 3. Build second model using batch normalization. Use early stopping and checkpoints. Save logs to Tensorboard
-# 1. Model architecture:
-# convolution with 64 filters, 3x3 kernel, 1x1 strides, "linear" activation, "same" padding
-# batch normalization
+  # 7. Evaluate model on test set
+  
+  
+  # 8. Save model in hdf5 format
+  
+  
+  # Ex 3. Build second model using batch normalization. Use early stopping and checkpoints. Save logs to Tensorboard
+  # 1. Model architecture:
+  # convolution with 64 filters, 3x3 kernel, 1x1 strides, "linear" activation, "same" padding
+  # batch normalization
 # "relu" activation
 # max pooling with 2x2 pool (kernel), 2x2 strides
 # dropout layer with 25% drop rate
@@ -63,37 +63,18 @@ ships_fit <-
 # dense layer with 512 units and "relu" activation
 # dropout layer with 25% drop rate
 # Dense layer as output
-ships_model2 <- keras_model_sequential() %>%
-  layer_conv_2d(
-    filter = 32, kernel_size = c(3, 3), padding = "same", 
-    input_shape = c(80, 80, 3), activation = "linear") %>%
-  layer_batch_normalization() %>%
-  layer_activation("relu") %>%
-  layer_max_pooling_2d(pool_size = c(2, 2), strides = c(2, 2)) %>%
-  layer_dropout(0.25) %>%
-  layer_conv_2d(filter = 64, kernel_size = c(3, 3), padding = "same",
-                activation = "linear") %>%
-  layer_batch_normalization() %>%
-  layer_activation("relu") %>%
-  layer_max_pooling_2d(pool_size = c(2, 2), strides = c(2, 2)) %>%
-  layer_dropout(0.25) %>%
-  layer_flatten() %>%
-  layer_dense(512, activation = "relu") %>%
-  layer_dropout(0.25) %>%
-  layer_dense(2, activation = "softmax")
+ships_model2 <- 
 
 # 2. Compile the model using binary crossentropy as loss function and
 # Adamax as optimizer with learning rate equal to 0.0001 and learning rate decay equal to 1e-6
-ships_model2 %>% compile(
-  loss = "binary_crossentropy",
-  optimizer = optimizer_adamax(lr = 0.0001, decay = 1e-6),
-  metrics = "accuracy"
-)
+
 
 # 3. Fit the model. Use 20% of the data for validation, 20 epochs and 32 samples for batch size.
-ships_fit2 <- ships_model2 %>% fit(ships_test$data, ships_test$labels,
-                             epochs = 20, batch_size = 32,
-                             validation_split = 0.2)
+# Use early stopping with respect to validation loss, set patience to 5.
+# Save best model (create checkpoint) with respect to validation loss every 2 epochs.
+# Save logs for Tensorboard (to the "logs" folder)
+dir.create("logs")
+ships_fit2 <- 
 
 # 7. Evaluate model on test set
-ships_model2 %>% evaluate(ships_test$data, ships_test$labels)
+
