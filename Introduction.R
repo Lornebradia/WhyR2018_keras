@@ -80,4 +80,4 @@ history <-
 
 
 # 7. Calculate predictions for the test set
-fashion_predictions <-
+fashion_predictions <- 

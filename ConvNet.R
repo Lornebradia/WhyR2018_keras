@@ -1,5 +1,6 @@
 library(keras)
 library(tidyverse)
+library(gridExtra)
 source("utils.R")
 
 # Load train and test sets
@@ -10,9 +11,10 @@ ships_train$data %>% dim()
 ships_train$labels %>% dim()
 
 # Sample image
-plot_sample_image(ships_train$data, show_layers = TRUE, row_nr = 4)
+plot_sample_image(ships_train$data, ships_train$labels, show_layers = TRUE, row_nr = 7)
 
-# Change labels vectors to one-hot-encoding matrix
+# Ex. 2 - Build a simple ConvNet for binary classification
+# 1. Change labels vectors to one-hot-encoding matrix
 ships_train$labels <- ships_train$labels %>% to_categorical(., 2)
 ships_test$labels <- ships_test$labels %>% to_categorical(., 2)
 
