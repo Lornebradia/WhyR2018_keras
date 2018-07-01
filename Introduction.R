@@ -21,12 +21,12 @@ summary(boston_model)
 # Explain why do we have 224 params ?
 13 * 16 + 16
 
-# Add output layer_dense() with 2 units and linear function as activation
+# Add output layer_dense() with 1 units and linear function as activation
 boston_model %>%
   layer_dense(units = 1, activation = "linear")
 summary(boston_model)
 
-# Configure model for training. Use SGD as optimizer, binary_crossentropy as loss function and add accuracy as additional metric.
+# Configure model for training. Use SGD as optimizer, MSE as loss function and add MAE as additional metric.
 boston_model %>% compile(
   optimizer = "sgd",
   loss = "mse",
