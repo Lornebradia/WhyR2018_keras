@@ -16,7 +16,7 @@ plot_sample_image(ships_train$data, ships_train$labels, show_layers = TRUE, row_
 # Ex. 2 - Build a simple ConvNet for binary classification
 # 1. Change labels vectors to one-hot-encoding matrix
 ships_train$labels <- 
-  ships_test$labels <- 
+ships_test$labels <- 
   
 # 2. Initialize sequential model and add 2d convolutional layer
 # with 32 filters, 3x3 kernel, 1x1 stride, "relu" activation
